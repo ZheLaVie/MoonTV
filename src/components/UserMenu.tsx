@@ -441,7 +441,12 @@ export const UserMenu: React.FC = () => {
     // 简洁模式变化时关闭设置并刷新页面
     setIsSettingsOpen(false);
     setTimeout(() => {
-      window.location.reload();
+      // 开启简洁模式时回到首页，避免停留在当前子页面
+      if (value && pathname !== '/') {
+        window.location.href = '/';
+      } else {
+        window.location.reload();
+      }
     }, 100);
   };
 
@@ -1327,7 +1332,7 @@ export const UserMenu: React.FC = () => {
       <div className='relative'>
         <button
           onClick={handleMenuClick}
-          className='w-10 h-10 p-2 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 dark:text-gray-300 dark:hover:bg-gray-700/50 transition-colors'
+          className='w-8 h-8 p-1.5 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200/50 dark:text-gray-300 dark:hover:bg-gray-700/50 transition-colors'
           aria-label='User Menu'
         >
           <User className='w-full h-full' />
